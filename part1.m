@@ -17,6 +17,7 @@ D2 = (2/h^2) * ones(N+1,1);
 D3 = (v/(2*h)-1/h^2) * ones(N,1);
 A = diag(D1, -1) + diag(D2, 0) + diag(D3, 1);
 
-Q = @(z) Q0 * sin((z-a)*pi / (b-a)) .* (a<=z).*(z<=b);
-
-T = A\Q(z)';
+Q_func = @(z) Q0 * sin((z-a)*pi / (b-a)) .* (a<=z).*(z<=b);
+Q = Q_func(z)';
+Q(1) = Q(1) - (-1/h^2 - v/(2*h))*T0;  %Boundary condition at T(0)
+T = A\Q;
