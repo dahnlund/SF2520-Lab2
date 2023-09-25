@@ -42,10 +42,11 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
-T = [T0; T];
+T_N = (Q_func(1) - theta*alpha(v)*Tout + (1/h^2+v/(2*h)+theta/(2*h))*T(end)) / (2/h^2+2/h*theta);
+T = [T0; T; T_N];
 
 saved_T(i) = T(z==0.9);
-plot(z(1:end-1),T)
+plot(z,T)
 hold on
 
 if ismember(N, [80 160 320])
@@ -98,9 +99,10 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
-T = [T0; T];
+T_N = (Q_func(1) - theta*alpha(v)*Tout + (1/h^2+v/(2*h)+theta/(2*h))*T(end)) / (2/h^2+2/h*theta);
+T = [T0; T; T_N];
 
-plot(z(1:end-1),T)
+plot(z,T)
 hold on
 
 
