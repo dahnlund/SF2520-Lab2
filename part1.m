@@ -5,9 +5,9 @@ a = 0.1; b = 0.4; Q0 = 7000; alpha0 = 50; Tout = 25; T0 = 100;
 
 %% A
 
-v = 2;
+v = 1;
 N_list = [10 20 40 80 160 320 640 1280];
-saved_T_end = zeros(length(N_list),1);
+saved_T = zeros(length(N_list),1);
 
 for i = 1:length(N_list)
 
@@ -42,9 +42,10 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
-T = [T0; T;  1/(-3/(2*h)-alpha(v))*(-alpha(v)*Tout-2*T(end)/h-T(end-1)/(2*h))];
-saved_T_end(i) = T(z==0.5);
-plot(z,T)
+T = [T0; T];
+
+saved_T(i) = T(z==0.9);
+plot(z(1:end-1),T)
 hold on
 
 if ismember(N, [80 160 320])
@@ -53,7 +54,7 @@ end
 end
 
 % Check convergence rate (should be 2)
-d = diff(saved_T_end);
+d = diff(saved_T);
 errors = sqrt(sum(d.^2, 2));
 diff(log2(flip(errors)))
 
@@ -97,9 +98,9 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
-T = [T0; T;  1/(-3/(2*h)-alpha(v))*(-alpha(v)*Tout-2*T(end)/h-T(end-1)/(2*h))];
+T = [T0; T];
 
-plot(z,T)
+plot(z(1:end-1),T)
 hold on
 
 
