@@ -51,7 +51,7 @@ if ismember(N, N_list(end-2:end))
 end
 end
 
-% Check convergence rate (should be 2)
+% Check convergence rate 
 d = diff(saved_T_end);
 errors = sqrt(sum(d.^2, 2));
 diff(log2(flip(errors)))
