@@ -21,14 +21,14 @@ Sy(end,end) = 2/(3*h^2); Sy(end, end-1) = 4/(3*h^2);
 
 A = kron(eye(size(Sy)),Sx) + kron(Sy, eye(size(Sx)));
 
-F(:,1) = F(:,1) - T_ext;
+F(:,1) = F(:,1) + T_ext/h^2;
 
 f = reshape(F, (N-1)*(M-1),1);
 
 t = A\f;
 
 T = reshape(t, (N-1), (M-1));
-%T0 = T_ext * ones(N-1,1);
-%T = [T0 T];
+T0 = T_ext * ones(N-1,1);
+T = [T0 T];
 
 mesh(T)
