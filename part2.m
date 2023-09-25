@@ -20,6 +20,7 @@ Sx(end,end) = 2/(3*h^2); Sx(end, end-1) = -2/(3*h^2);
 Sy(end,end) = 2/(3*h^2); Sy(end, end-1) = -2/(3*h^2);
 
 A = kron(eye(size(Sy)),Sx) + kron(Sy, eye(size(Sx)));
+A = sparse(A);
 
 F(:,1) = F(:,1) + T_ext/h^2;
 
@@ -38,7 +39,7 @@ ylabel("x")
 
 %% d
 
-N = 60*2;
+N = 60*4;
 h = Lx/N;
 M = Ly/h;
 
@@ -61,6 +62,8 @@ Sy(end,end) = 2/(3*h^2); Sy(end, end-1) = -2/(3*h^2);
 
 A = kron(eye(size(Sy)),Sx) + kron(Sy, eye(size(Sx)));
 
+A = sparse(A);
+
 F(:,1) = F(:,1) + T_ext/h^2;
 
 f = reshape(F, (N-1)*(M-1),1);
@@ -74,3 +77,8 @@ T = [T0 T];
 mesh(T)
 xlabel("y")
 ylabel("x")
+
+figure
+imagesc(x,y,T)
+figure
+contour(T)
