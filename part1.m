@@ -72,14 +72,13 @@ z = 0:h:1;
 
 v = v_list(i);
 
-
-D1 = (-1/h^2 - v/(2*h)) * ones(N,1);
-D2 = (2/h^2) * ones(N+1,1);
-D3 = (v/(2*h)-1/h^2) * ones(N,1);
+D1 = (-1/h^2 - v/(2*h)) * ones(N-2,1);
+D2 = (2/h^2) * ones(N-1,1);
+D3 = (v/(2*h)-1/h^2) * ones(N-2,1);
 A = diag(D1, -1) + diag(D2, 0) + diag(D3, 1);
 
 Q_func = @(z) Q0 * sin((z-a)*pi / (b-a)) .* (a<=z).*(z<=b);
-f = Q_func(z)';
+f = Q_func(z(2:end-1))';
 
 % For the boundary T(0)
 %--------------------------------|
@@ -98,7 +97,10 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
+T = [T0; T;  1/(-3/(2*h)-alpha(v))*(-alpha(v)*Tout-2*T(end)/h-T(end-1)/(2*h))];
+
 plot(z,T)
 hold on
+
 
 end
