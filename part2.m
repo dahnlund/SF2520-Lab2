@@ -36,8 +36,8 @@ mesh(T)
 xlabel("y")
 ylabel("x")
 
-x = h:h:Lx-h;
-y = h:h:Ly-h;
+x = 0:h:Lx-h;
+y = 0:h:Ly-h;
 
 fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,2)==6,round(y,2)==2), N)
 
@@ -56,8 +56,8 @@ c2 = -f/2;
 %------------
 
 
-x = 0:h:Lx;
-y = 0:h:Ly;
+x = 0:h:Lx-h;
+y = 0:h:Ly-h;
 
 T_analytical = @(x,y) (c0 + c1*y + c2*y.^2).*ones(length(x),1);
 

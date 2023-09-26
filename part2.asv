@@ -36,8 +36,8 @@ mesh(T)
 xlabel("y")
 ylabel("x")
 
-x = h:h:Lx-h;
-y = h:h:Ly-h;
+x = 0:h:Lx-h;
+y = 0:h:Ly-h;
 
 fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,2)==6,round(y,2)==2), N)
 
@@ -52,19 +52,22 @@ f = 2;
 %------------
 c0 = T_ext;
 c1 = f * Ly;
-c2 = -f/2*Ly;
+c2 = -f/2;
 %------------
 
 
-x = h:h:Lx-h;
-y = h:h:Ly-h;
+x = 0:h:Lx-h;
+y = 0:h:Ly-h;
 
-T_analytical = @(x,y) c0 + c1*y + c2*y.^2;
+T_analytical = @(x,y) (c0 + c1*y + c2*y.^2).*ones(length(x),1);
 
-mesh(T_analytical(x,y'))
+mesh(T_analytical(x',y)+2)
+hold on
+mesh(T)
 xlabel("y")
 ylabel("x")
 
+fprintf("T(6,2) = %.3f, for analytical solution\n", T_analytical(6,2))
 
 
 %% d
