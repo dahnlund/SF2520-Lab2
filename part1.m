@@ -6,7 +6,7 @@ a = 0.1; b = 0.4; Q0 = 7000; alpha0 = 50; Tout = 25; T0 = 100;
 %% A
 
 v = 1;
-N_list = [10 20 40 80 160 320 640 1280];
+N_list = [10 20 40 80 160 320 640 1280 1280*2 1280*4];
 saved_T = zeros(length(N_list),1);
 
 for i = 1:length(N_list)
@@ -45,7 +45,7 @@ T = A\f;
 T_N = (Q_func(1) - theta*alpha(v)*Tout + (1/h^2+v/(2*h)+theta/(2*h))*T(end)) / (2/h^2+2/h*theta);
 T = [T0; T; T_N];
 
-saved_T(i) = T(z==0.9);
+saved_T(i) = T(z==1);
 plot(z,T)
 hold on
 

@@ -36,6 +36,35 @@ mesh(T)
 xlabel("y")
 ylabel("x")
 
+x = h:h:Lx-h;
+y = h:h:Ly-h;
+
+fprintf("T(6,2) = %.3f, for N = %.0f\n", T(x==6,y==2), N)
+
+%% c
+
+N = 60;
+h = Lx/N;
+M = Ly/h;
+F = 2 * ones(N-1,M-1);
+
+%From anaylitcal solution we have:
+%------------
+c0 = T_ext;
+c1 = F/2 * Ly;
+c2 = -F*Ly;
+%------------
+
+x = h:h:Lx-h;
+y = h:h:Ly-h;
+
+T_analytical = @(x,y) c0 + c1.*y + c2.*y.^2;
+
+mesh(T_analytical(x',y))
+xlabel("y")
+ylabel("x")
+
+
 
 %% d
 
@@ -74,6 +103,7 @@ T = reshape(t, (N-1), (M-1));
 T0 = T_ext * ones(N-1,1);
 T = [T0 T];
 
+figure
 mesh(T)
 xlabel("y")
 ylabel("x")
@@ -82,3 +112,5 @@ figure
 imagesc(x,y,T)
 figure
 contour(T)
+
+fprintf("T(6,2) = %.3f, for N = %.0f\n", T(x==6,y==2), N)
