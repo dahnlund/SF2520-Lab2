@@ -7,6 +7,7 @@ a = 0.1; b = 0.4; Q0 = 7000; alpha0 = 50; Tout = 25; T0 = 100;
 
 v = 1;
 N_list = [10 20 40 80 160 320 640 1280 1280*2 1280*4];
+
 saved_T = zeros(length(N_list),1);
 
 for i = 1:length(N_list)
@@ -42,17 +43,29 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
-T_N = (Q_func(1) - theta*alpha(v)*Tout + (1/h^2+v/(2*h)+theta/(2*h))*T(end)) / (2/h^2+2/h*theta);
+T_N = 1/(3/(2*h)+alpha(v)) * (2*T(end)/h-T(end-1)/(2*h)+alpha(v)*Tout);
 T = [T0; T; T_N];
 
 saved_T(i) = T(z==1);
-plot(z,T)
-hold on
+if ismember(N, [10 20 40 80])
+    plot(z,T)
+    hold on
+end
 
 if ismember(N, [80 160 320])
-    fprintf("T at z = 0.5 for N = %.0f: %.3f\n", N,T(z==0.5))
+    fprintf("T(z = 0.5) = %.3f, for N = %.0f\n", T(z == 0.5), N)
 end
 end
+
+for i = 2:length(N_list)-1
+    fprintf("&(%.0f,%.0f)", N_list(i), 2*N_list(i))
+end
+fprintf("\n")
+
+xlabel("Position throughout cylinder, z")
+ylabel("Temperature, T")
+legend("N = 10","N = 20","N = 40","N = 80")
+
 
 % Check convergence rate (should be 2)
 d = diff(saved_T);
@@ -99,7 +112,7 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 %--------------------------------|
 
 T = A\f;
-T_N = (Q_func(1) - theta*alpha(v)*Tout + (1/h^2+v/(2*h)+theta/(2*h))*T(end)) / (2/h^2+2/h*theta);
+T_N = 1/(3/(2*h)+alpha(v)) * (2*T(end)/h-T(end-1)/(2*h)+alpha(v)*Tout);
 T = [T0; T; T_N];
 
 plot(z,T)
