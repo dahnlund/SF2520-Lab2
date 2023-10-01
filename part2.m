@@ -32,12 +32,13 @@ T = reshape(t, (N-1), (M-1));
 T0 = T_ext * ones(N-1,1);
 T = [T0 T];
 
-mesh(T)
-xlabel("y")
-ylabel("x")
-
 x = 0:h:Lx-h;
 y = 0:h:Ly-h;
+
+mesh(y,x(2:end),T)
+xlabel("y")
+ylabel("x")
+zlabel("Temperature in metal block, T")
 
 fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,2)==6,round(y,2)==2), N)
 
@@ -72,7 +73,7 @@ fprintf("T(6,2) = %.3f, for analytical solution\n", T_analytical(6,2))
 
 %% d
 
-N = 60*4;
+N = 60*2;
 h = Lx/N;
 M = Ly/h;
 

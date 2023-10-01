@@ -118,5 +118,8 @@ T = [T0; T; T_N];
 plot(z,T)
 hold on
 
+xlabel("Position throughout cylinder, z")
+ylabel("Temperature, T")
+legend("v = 1","v = 5","v = 15","v = 100")
 
 end
