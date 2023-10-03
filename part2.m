@@ -114,7 +114,7 @@ x = 0:h:Lx;
 y = 0:h:Ly;
 
 T = reshape(t, (N-1), (M-1));
-T0 = T_ext * ones(N-1,1);
+T_y0 = T_ext * ones(N-1,1);
 T_M = 1/3*(4*T(:,end)-T(:,end-1));
 T = [T_y0 T T_M];
 T_N = 1/3*(4*T(end,:)-T(end-1,:));
