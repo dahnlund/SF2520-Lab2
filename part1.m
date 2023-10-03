@@ -76,12 +76,10 @@ diff(log2(flip(errors)))
 
 
 v_list = [1 5 15 100];
-
+N = 10000;
+h = 1/N;
 
 for i = 1:length(v_list)
-
-N = 500;
-h = 1/N;
 
 z = 0:h:1;
 
@@ -114,6 +112,8 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 T = A\f;
 T_N = 1/(3/(2*h)+alpha(v)) * (2*T(end)/h-T(end-1)/(2*h)+alpha(v)*Tout);
 T = [T0; T; T_N];
+
+fprintf("T(z = 0.5) = %.3f, for v = %.0f\n", T(z == 0.5), v)
 
 plot(z,T)
 hold on
