@@ -69,8 +69,7 @@ legend("N = 10","N = 20","N = 40","N = 80")
 
 % Check convergence rate (should be 2)
 d = diff(saved_T);
-errors = sqrt(sum(d.^2, 2));
-diff(log2(flip(errors)))
+diff(log2(flip(d)))
 
 %% Part B
 
