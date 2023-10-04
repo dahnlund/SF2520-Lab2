@@ -136,8 +136,14 @@ for i = 1:length(N_list)
         
         figure
         imagesc(y,x,T)
+        xlabel("y")
+        ylabel("x")
+        title("Imagesc plot of T(x,y)")
         figure
         contour(y,x,T)
+        xlabel("y")
+        ylabel("x")
+        title("Contour plot of T(x,y)")
     end
     if ismember(N, [60 120 240])
         fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,6)==6,round(y,6)==2), N)
