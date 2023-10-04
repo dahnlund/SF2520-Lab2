@@ -19,8 +19,7 @@ Sx(end,end) = 2/(3*h^2); Sx(end, end-1) = -2/(3*h^2);
 %Boundary condition for y
 Sy(end,end) = 2/(3*h^2); Sy(end, end-1) = -2/(3*h^2);
 
-A = kron(eye(size(Sy)),Sx) + kron(Sy, eye(size(Sx)));
-A = sparse(A);
+A = kron(speye(size(Sy)),Sx) + kron(Sy, speye(size(Sx)));
 
 F(:,1) = F(:,1) + T_ext/h^2;
 
@@ -79,7 +78,7 @@ fprintf("T(6,2) = %.3f, for analytical solution\n", T_analytical(6,2))
 
 %% d
 
-N_list = [60; 120; 240];
+N_list = [60; 120; 240; 240*2; 240*4];
 saved_T = zeros(length(N_list),1); %Create a vector to be used in convergence rate analysis
 
 for i = 1:length(N_list)
@@ -106,9 +105,7 @@ for i = 1:length(N_list)
     %Boundary condition for y
     Sy(end,end) = 2/(3*h^2); Sy(end, end-1) = -2/(3*h^2);
     
-    A = kron(eye(size(Sy)),Sx) + kron(Sy, eye(size(Sx)));
-    
-    A = sparse(A);
+    A = kron(speye(size(Sy)),Sx) + kron(Sy, speye(size(Sx)));
     
     F(:,1) = F(:,1) + T_ext/h^2;
     
@@ -147,4 +144,5 @@ end
 
 % Check convergence rate (should be 2)
 d = abs(diff(saved_T));
-fprintf("Approximate convergence rate: %.02f\n", diff(log2(flip(d))))
+approxconv = diff(log2(flip(d)));
+fprintf("Approximate convergence rate: %.02f\n", approxconv(end))
