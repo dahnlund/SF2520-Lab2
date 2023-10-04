@@ -78,7 +78,7 @@ fprintf("T(6,2) = %.3f, for analytical solution\n", T_analytical(6,2))
 
 %% d
 
-N_list = [60; 120; 240; 240*2; 240*4];
+N_list = [60; 120; 240; 240*2; 240*4;240*8];
 saved_T = zeros(length(N_list),1); %Create a vector to be used in convergence rate analysis
 
 for i = 1:length(N_list)
@@ -145,24 +145,24 @@ for i = 1:length(N_list)
         ylabel("x")
         title("Contour plot of T(x,y)")
     end
-    if ismember(N, [60 120 240])
-        fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,6)==6,round(y,6)==2), N)
-    end
+   
+    fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,6)==6,round(y,6)==2), N)
     saved_T(i) = T(round(x,2)==6,round(y,2)==2);
 end
 
 % Check convergence rate (should be 2)
 d = abs(diff(saved_T));
-approxconv = diff(log2(flip(d)));
+approxconv = abs(diff(log2(d)));
 
 %Create table
 fprintf("\n\n\n")
+disp("Convergence rate analysis:")
 for i = 2:length(N_list)-1
     fprintf("$(%.0f,%.0f)$&",N_list(i),N_list(i+1))
 end
 fprintf("\n")
 
-for i = 1:approxconv+1
+for i = 1:length(approxconv)
     fprintf("$%.05f$&",approxconv(i))
 
 end
