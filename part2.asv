@@ -148,16 +148,15 @@ end
 % Check convergence rate (should be 2)
 d = abs(diff(saved_T));
 approxconv = diff(log2(flip(d)));
+fprintf("Approximate convergence rate for N = ‰.0f: %.02f\n", N_list, approxconv)
 
 %Create table
-fprintf("\n\n\n")
+fprintf("$")
 for i = 2:length(N_list)-1
-    fprintf("$(%.0f,%.0f)$&",N_list(i),N_list(i+1))
+    fprintf("(%.0f,%.0f)$&",N_list(i),N_list(i+1))
 end
-fprintf("\n")
-
-for i = 1:approxconv+1
-    fprintf("$%.05f$&",approxconv(i))
+for i = 2:length(N_list)-1
+    fprintf("(%.0f,%.0f)$&",approxconv(i-1),N_list(i+1))
 
 end
-fprintf("\n\n\n")
+disp("\n")
