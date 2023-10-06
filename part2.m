@@ -133,17 +133,20 @@ for i = 1:length(N_list)
         ylabel("x")
         zlabel("Temperature in metal block, T")
         title("Numerical solution when N=120")
-        
+    
         figure
-        imagesc(y,x,T)
-        xlabel("y")
-        ylabel("x")
+        imagesc(x,y,T')
+        xlabel("x")
+        ylabel("y")
         title("Imagesc plot of T(x,y)")
+        set(gca,'YDir', 'normal')
+        axis equal
         figure
-        contour(y,x,T)
-        xlabel("y")
-        ylabel("x")
+        contour(x,y,T')
+        xlabel("x")
+        ylabel("y")
         title("Contour plot of T(x,y)")
+        axis equal
     end
    
     fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,6)==6,round(y,6)==2), N)

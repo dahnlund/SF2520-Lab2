@@ -46,7 +46,7 @@ T = A\f;
 T_N = 1/(3/(2*h)+alpha(v)) * (2*T(end)/h-T(end-1)/(2*h)+alpha(v)*Tout);
 T = [T0; T; T_N];
 
-saved_T(i) = T(z==0.5);
+saved_T(i) = T(z==1);
 if ismember(N, [10 20 40 80])
     plot(z,T)
     hold on
