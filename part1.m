@@ -66,22 +66,32 @@ xlabel("Position throughout cylinder, z")
 ylabel("Temperature, T")
 legend("N = 10","N = 20","N = 40","N = 80")
 
-
 % Check convergence rate (should be 2)
-d = diff(saved_T);
-errors = sqrt(sum(d.^2, 2));
-diff(log2(flip(errors)))
+d = abs(diff(saved_T));
+approxconv = abs(diff(log2(d)));
+
+%Create table
+fprintf("\n\n\n")
+disp("Convergence rate analysis:")
+for i = 2:length(N_list)-1
+    fprintf("$(%.0f,%.0f)$&",N_list(i),N_list(i+1))
+end
+fprintf("\n")
+
+for i = 1:length(approxconv)
+    fprintf("$%.05f$&",approxconv(i))
+
+end
+fprintf("\n\n\n")
 
 %% Part B
 
 
 v_list = [1 5 15 100];
-
+N = 1000;
+h = 1/N;
 
 for i = 1:length(v_list)
-
-N = 500;
-h = 1/N;
 
 z = 0:h:1;
 
@@ -114,6 +124,8 @@ f(end) = f(end) - theta * alpha(v)*Tout;
 T = A\f;
 T_N = 1/(3/(2*h)+alpha(v)) * (2*T(end)/h-T(end-1)/(2*h)+alpha(v)*Tout);
 T = [T0; T; T_N];
+
+fprintf("T(z = 0.5) = %.3f, for v = %.0f\n", T(z == 0.5), v)
 
 plot(z,T)
 hold on
