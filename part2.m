@@ -137,6 +137,7 @@ for i = 1:length(N_list)
     
         figure
         imagesc(x,y,T')
+        colorbar
         xlabel("x")
         ylabel("y")
         title("Imagesc plot of T(x,y)")
