@@ -45,7 +45,7 @@ xlabel("y")
 ylabel("x")
 zlabel("Temperature in metal block, T")
 
-fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,2)==6,round(y,2)==2), N)
+fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,5)==6,round(y,5)==2), N)
 
 %% b
 
@@ -72,7 +72,8 @@ hold on
 mesh(y,x,T)
 xlabel("y")
 ylabel("x")
-
+zlabel("T")
+title("Temperatur in plate, analytical solution")
 fprintf("T(6,2) = %.3f, for analytical solution\n", T_analytical(6,2))
 
 
@@ -149,7 +150,7 @@ for i = 1:length(N_list)
         axis equal
     end
    
-    fprintf("T(6,2) = %.3f, for N = %.0f\n", T(round(x,6)==6,round(y,6)==2), N)
+    fprintf("T(6,2) = %.5f, for N = %.0f\n", T(round(x,6)==6,round(y,6)==2), N)
     saved_T(i) = T(round(x,2)==6,round(y,2)==2);
 end
 
